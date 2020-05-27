@@ -15,6 +15,9 @@ jobs:
           - os: ubuntu-latest
             artifact_name: tojson
             asset_name: tojson-linux-amd64
+          - os: windows-latest
+            artifact_name: tojson.exe
+            asset_name: tojson-windows-amd64
           - os: macos-latest
             artifact_name: tojson
             asset_name: tojson-macos-amd64
