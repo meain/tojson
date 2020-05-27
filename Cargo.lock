@@ -231,7 +231,7 @@ dependencies = [
 
 [[package]]
 name = "tojson"
-version = "0.1.1"
+version = "0.1.4"
 dependencies = [
  "serde",
  "serde_json",
