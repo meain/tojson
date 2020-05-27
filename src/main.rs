@@ -18,21 +18,21 @@ fn get_file_content(filename: &str) -> String {
 
 fn from_toml(text: &str, pretty: bool) -> String {
     use toml::Value;
-    let value = text.parse::<Value>().unwrap();
+    let value = text.parse::<Value>().expect("Unable to parse file.");
     if pretty {
-        serde_json::to_string_pretty(&value).expect("Unable to convert")
+        serde_json::to_string_pretty(&value).expect("Unable to convert to json.")
     } else {
-        serde_json::to_string(&value).expect("Unable to convert")
+        serde_json::to_string(&value).expect("Unable to convert to json.")
     }
 }
 
 fn from_yaml(text: &str, pretty: bool) -> String {
     use serde_yaml::Value;
-    let value: Value = serde_yaml::from_str(&text).unwrap();
+    let value: Value = serde_yaml::from_str(&text).expect("Unable to parse file.");
     if pretty {
-        serde_json::to_string_pretty(&value).expect("Unable to convert")
+        serde_json::to_string_pretty(&value).expect("Unable to convert to json.")
     } else {
-        serde_json::to_string(&value).expect("Unable to convert")
+        serde_json::to_string(&value).expect("Unable to convert to json.")
     }
 }
 
@@ -60,14 +60,14 @@ fn main() {
         let mut buffer = String::new();
         let stdin = io::stdin();
         let mut handle = stdin.lock();
-        handle.read_to_string(&mut buffer).unwrap();
+        handle.read_to_string(&mut buffer).expect("Unable to read stdin.");
 
         if opt.from == "yaml" {
             println!("{}", from_yaml(&buffer, opt.pretty));
         } else if opt.from == "toml" {
             println!("{}", from_toml(&buffer, opt.pretty));
         } else {
-            eprintln!("Need to specify a format for stdin");
+            eprintln!("You need to specify a format when reading from stdin.");
             std::process::exit(1);
         }
     }
