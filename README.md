@@ -24,7 +24,17 @@ git clone git@github.com:meain/tojson.git
 cd tojson && cargo install --force --path .
 ```
 
-## Example usecase
+## Usage
+
+```
+tojson - convert from various formats to json
+    Usage: tojson [flags] <filename>
+    supported formats - yaml, toml
+    flags:
+        --pretty, -p: prettify the output
+```
+
+#### Example usecase
 
 ```
 tojson Cargo.toml | jq -r '.package.version'
