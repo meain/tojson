@@ -27,5 +27,5 @@ cd tojson && cargo install --force --path .
 ## Example usecase
 
 ```
-tojson Cargo.toml | jq '.version'
+tojson Cargo.toml | jq -r '.package.version'
 ```
