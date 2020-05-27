@@ -1,12 +1,14 @@
+use std::io::{self, Read};
 use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
+#[structopt(name = "tojson", about = "Convert from differnt formats to json")]
 struct Opts {
-    #[structopt(short, long, default_value = "auto")]
+    #[structopt(short, long, default_value = "auto", possible_values = &["auto", "yaml", "toml"])]
     from: String,
     #[structopt(short, long)]
     pretty: bool,
-    files: Vec<String>,
+    filename: Option<String>,
 }
 
 fn get_file_content(filename: &str) -> String {
@@ -34,38 +36,38 @@ fn from_yaml(text: &str, pretty: bool) -> String {
     }
 }
 
-fn help() {
-    println!("
-tojson - convert from various formats to json
-    Usage: tojson [flags] <filename>
-    supported formats - yaml, toml
-    flags:
-        --pretty, -p: prettify the output");
-}
-
 fn main() {
     let opt = Opts::from_args();
-    if opt.files.len() == 0 {
-        eprintln!("No filenames specified.");
-        help();
-        std::process::exit(1);
-    }
-    for file in opt.files.iter() {
+    if let Some(file) = &opt.filename {
         if opt.from == "auto" {
             if file.ends_with("yaml") {
-                println!("{}", from_yaml(&get_file_content(file), opt.pretty));
+                println!("{}", from_yaml(&get_file_content(&file), opt.pretty));
             } else if file.ends_with("toml") {
-                println!("{}", from_toml(&get_file_content(file), opt.pretty));
+                println!("{}", from_toml(&get_file_content(&file), opt.pretty));
             } else {
                 eprintln!("Unknown format for {}", file);
             }
         } else if opt.from == "yaml" {
-            println!("{}", from_yaml(&get_file_content(file), opt.pretty));
+            println!("{}", from_yaml(&get_file_content(&file), opt.pretty));
         } else if opt.from == "toml" {
-            println!("{}", from_toml(&get_file_content(file), opt.pretty));
+            println!("{}", from_toml(&get_file_content(&file), opt.pretty));
         } else {
-            help();
             eprintln!("Unknown format {}.", opt.from);
+            std::process::exit(1);
+        }
+    } else {
+        // Use stdin if filename not available
+        let mut buffer = String::new();
+        let stdin = io::stdin();
+        let mut handle = stdin.lock();
+        handle.read_to_string(&mut buffer).unwrap();
+
+        if opt.from == "yaml" {
+            println!("{}", from_yaml(&buffer, opt.pretty));
+        } else if opt.from == "toml" {
+            println!("{}", from_toml(&buffer, opt.pretty));
+        } else {
+            eprintln!("Need to specify a format for stdin");
             std::process::exit(1);
         }
     }
