@@ -6,6 +6,12 @@ on:
       - '*'
 
 - steps:
+  - uses: hecrj/setup-rust-action@v1
+    with:
+      rust-version: stable
+  - uses: actions/checkout@v1
+  - name: Build
+    run: cargo build --release --locked
   - uses: actions/checkout@v1
   - run: cargo login ${CRATES_IO_TOKEN}
     env:
