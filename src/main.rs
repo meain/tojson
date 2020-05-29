@@ -80,6 +80,8 @@ enum Format {
 }
 
 impl Format {
+    // used for test
+    #[allow(dead_code)]
     fn to_string(&self) -> String {
         match &self {
             Format::Toml => "toml".to_string(),
@@ -152,6 +154,7 @@ fn main() {
 mod test {
     use crate::Format;
 
+    #[allow(dead_code)]
     fn ts(from: Format, to: Format) {
         let mut input_file = "testfiles/file.".to_string();
         input_file.push_str(&from.to_string());
