@@ -23,14 +23,9 @@
       "spec": {
         "containers": [
           {
-            "name": "sce-edoc",
-            "imagePullPolicy": "Always",
             "image": "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}",
-            "resources": {
-              "limits": {
-                "memory": "1Gi"
-              }
-            },
+            "imagePullPolicy": "Always",
+            "name": "sce-edoc",
             "env": [
               {
                 "name": "MONGO_SERVICE_URI",
@@ -45,7 +40,12 @@
               {
                 "containerPort": 80
               }
-            ]
+            ],
+            "resources": {
+              "limits": {
+                "memory": "1Gi"
+              }
+            }
           }
         ]
       }

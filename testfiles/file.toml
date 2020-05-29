@@ -1,0 +1,33 @@
+apiVersion = "apps/v1"
+kind = "Deployment"
+
+[metadata]
+name = "sce-edoc"
+
+[metadata.labels]
+app = "sce-edoc"
+
+[spec]
+replicas = "{{ .Values.replicas }}"
+[spec.selector.matchLabels]
+app = "sce-edoc"
+[spec.template.metadata.labels]
+app = "sce-edoc"
+[[spec.template.spec.containers]]
+image = "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+imagePullPolicy = "Always"
+name = "sce-edoc"
+
+[[spec.template.spec.containers.env]]
+name = "MONGO_SERVICE_URI"
+value = "{{ .Values.mongodb }}"
+
+[[spec.template.spec.containers.env]]
+name = "BUCKET_NAME"
+value = "{{ .Values.bucket }}"
+
+[[spec.template.spec.containers.ports]]
+containerPort = 80
+[spec.template.spec.containers.resources.limits]
+memory = "1Gi"
+
