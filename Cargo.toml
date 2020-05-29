@@ -7,6 +7,7 @@ description = "Convert from toml and yaml to json"
 license = "Apache-2.0"
 homepage = "https://github.com/meain/tojson"
 repository = "https://github.com/meain/tojson"
+readme = "README.md"
 include = ["src/main.rs", "README.md"]
 
 [dependencies]
