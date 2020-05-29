@@ -1,6 +1,6 @@
 # tojson
 
-> Convert from yaml and toml to json
+> Convert between yaml, toml and json
 
 
 ## Installation
@@ -27,11 +27,23 @@ cd tojson && cargo install --force --path .
 ## Usage
 
 ```
-tojson - convert from various formats to json
-    Usage: tojson [flags] <filename>
-    supported formats - yaml, toml
-    flags:
-        --pretty, -p: prettify the output
+tojson 0.3.0
+Convert from differnt formats to json
+
+USAGE:
+    tojson [FLAGS] [OPTIONS] [filename]
+
+FLAGS:
+    -h, --help       Prints help information
+    -p, --pretty
+    -V, --version    Prints version information
+
+OPTIONS:
+    -f, --from <from>     [default: auto]  [possible values: auto, yaml, toml, json]
+    -t, --to <to>         [default: json]  [possible values: json, yaml, toml]
+
+ARGS:
+    <filename>
 ```
 
 #### Example usecase
