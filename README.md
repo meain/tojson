@@ -27,9 +27,6 @@ cd tojson && cargo install --force --path .
 ## Usage
 
 ```
-tojson 0.3.0
-Convert from differnt formats to json
-
 USAGE:
     tojson [FLAGS] [OPTIONS] [filename]
 
