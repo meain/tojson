@@ -1,6 +1,6 @@
 [package]
 name = "tojson"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Abin Simon <abinsimon10@gmail.com>"]
 edition = "2018"
 description = "Convert between toml, yaml and json"
