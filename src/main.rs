@@ -110,11 +110,11 @@ fn main() {
     let from: Format = match opt.from.as_ref() {
         "auto" => match &opt.filename {
             Some(filename) => {
-                if filename.ends_with("yaml") || filename.ends_with("yml") {
+                if filename.ends_with(".yaml") || filename.ends_with(".yml") {
                     Format::Yaml
-                } else if filename.ends_with("toml") {
+                } else if filename.ends_with(".toml") {
                     Format::Toml
-                } else if filename.ends_with("json") {
+                } else if filename.ends_with(".json") {
                     Format::Json
                 } else {
                     panic!("Unable to identify input format.")
