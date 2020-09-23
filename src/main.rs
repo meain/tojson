@@ -151,6 +151,8 @@ fn main() {
     println!("{}", convert(&content, &from, &to, opt.pretty))
 }
 
+
+#[cfg(test)]
 mod test {
     use crate::Format;
 
